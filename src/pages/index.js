@@ -8,17 +8,17 @@ import ArticlePreview from '../components/article-preview'
 
 class RootIndex extends React.Component {
   render() {
-    const posts = get(this, 'props.data.allContentfulBlogPost.nodes')
-    const [author] = get(this, 'props.data.allContentfulPerson.nodes')
+    const jedi = get(this, 'props.data.allContentfulJedi.nodes')
+    const [homepage] = get(this, 'props.data.allContentfulHomepage.nodes')
 
     return (
       <Layout location={this.props.location}>
         <Hero
-          image={author.heroImage.gatsbyImageData}
-          title={author.name}
-          content={author.shortBio.shortBio}
+          image={homepage.homepageImage.gatsbyImageData}
+          title={homepage.name}
+          content={homepage.shortDescription.shortDescription}
         />
-        <ArticlePreview posts={posts} />
+        <ArticlePreview forceUsers={jedi} />
       </Layout>
     )
   }
@@ -28,13 +28,11 @@ export default RootIndex
 
 export const pageQuery = graphql`
   query HomeQuery {
-    allContentfulBlogPost(sort: { fields: [publishDate], order: DESC }) {
+    allContentfulJedi(sort: { fields: [publishDate], order: DESC }) {
       nodes {
-        title
-        slug
+        name
         publishDate(formatString: "MMMM Do, YYYY")
-        tags
-        heroImage {
+        avatar {
           gatsbyImageData(
             layout: FULL_WIDTH
             placeholder: BLURRED
@@ -42,23 +40,21 @@ export const pageQuery = graphql`
             height: 212
           )
         }
+        type
         description {
-          childMarkdownRemark {
-            html
-          }
+          raw
         }
       }
     }
-    allContentfulPerson(
-      filter: { contentful_id: { eq: "15jwOBqpxqSAOy2eOO4S0m" } }
+    allContentfulHomepage(
+      filter: { contentful_id: { eq: "5o5NW1fsGyA46f3EDGTRbw" } }
     ) {
       nodes {
         name
-        shortBio {
-          shortBio
+        shortDescription {
+          shortDescription
         }
-        title
-        heroImage: image {
+        homepageImage {
           gatsbyImageData(
             layout: CONSTRAINED
             placeholder: BLURRED

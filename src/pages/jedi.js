@@ -7,31 +7,29 @@ import Layout from '../components/layout'
 import Hero from '../components/hero'
 import ArticlePreview from '../components/article-preview'
 
-class BlogIndex extends React.Component {
+class JediIndex extends React.Component {
   render() {
-    const posts = get(this, 'props.data.allContentfulBlogPost.nodes')
+    const posts = get(this, 'props.data.allContentfulJedi.nodes')
 
     return (
       <Layout location={this.props.location}>
-        <Seo title="Blog" />
-        <Hero title="Blog" />
-        <ArticlePreview posts={posts} />
+        <Seo title="Jedi" />
+        <Hero title="Jedi" />
+        <ArticlePreview forceUsers={posts} />
       </Layout>
     )
   }
 }
 
-export default BlogIndex
+export default JediIndex
 
 export const pageQuery = graphql`
-  query BlogIndexQuery {
-    allContentfulBlogPost(sort: { fields: [publishDate], order: DESC }) {
+  query JediIndexQuery {
+    allContentfulJedi(sort: { fields: [publishDate], order: DESC }) {
       nodes {
-        title
-        slug
+        name
         publishDate(formatString: "MMMM Do, YYYY")
-        tags
-        heroImage {
+        avatar {
           gatsbyImageData(
             layout: FULL_WIDTH
             placeholder: BLURRED
@@ -39,10 +37,9 @@ export const pageQuery = graphql`
             height: 212
           )
         }
+        type
         description {
-          childMarkdownRemark {
-            html
-          }
+          raw
         }
       }
     }

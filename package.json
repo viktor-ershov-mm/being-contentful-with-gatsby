@@ -8,6 +8,7 @@
     "url": "https://github.com/contentful/starter-gatsby-blog/issues"
   },
   "dependencies": {
+    "contentful-management": "^7.45.0",
     "gatsby": "^3.10.1",
     "gatsby-plugin-image": "^1.10.1",
     "gatsby-plugin-react-helmet": "^4.10.0",
@@ -17,6 +18,8 @@
     "gatsby-transformer-sharp": "^3.10.0",
     "gh-pages": "^3.1.0",
     "lodash": "^4.17.21",
+    "minimist": "^1.2.5",
+    "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0"
@@ -43,11 +46,14 @@
   "scripts": {
     "dev": "gatsby develop",
     "build": "gatsby build",
+    "clean": "gatsby clean",
     "heroku-postbuild": "gatsby build",
     "serve": "gatsby serve",
     "postinstall": "node ./bin/hello.js",
     "setup": "node ./bin/setup.js",
     "netlify:login": "netlify login",
-    "netlify:deploy": "netlify deploy -d public -p"
+    "netlify:deploy": "netlify deploy -d public -p",
+    "migration:new": "node ./contentful/create-migration.js",
+    "migration:run": "node ./contentful/run-migration.js"
   }
 }
