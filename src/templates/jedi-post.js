@@ -84,17 +84,6 @@ export const pageQuery = graphql`
       type
       description {
         raw
-        references {
-          ... on ContentfulLightsaber {
-            __typename
-            contentful_id
-            title
-            image {
-              description
-              gatsbyImageData(layout: CONSTRAINED)
-            }
-          }
-        }
       }
     }
     previous: contentfulJedi(name: { eq: $previousPostName }) {

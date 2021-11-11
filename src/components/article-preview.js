@@ -7,7 +7,7 @@ import Container from './container'
 import Tags from './tags'
 import * as styles from './article-preview.module.css'
 
-const ArticlePreview = ({ forceUsers }) => {
+const ArticlePreview = ({ forceUsers, type }) => {
   if (!forceUsers) return null
   if (!Array.isArray(forceUsers)) return null
 
@@ -17,7 +17,7 @@ const ArticlePreview = ({ forceUsers }) => {
         {forceUsers.map((forceUser) => {
           return (
             <li key={forceUser.name}>
-              <Link to={`/jedi/${forceUser.name}`} className={styles.link}>
+              <Link to={`/${type}/${forceUser.name}`} className={styles.link}>
                 <GatsbyImage
                   alt="avatar"
                   image={forceUser.avatar.gatsbyImageData}

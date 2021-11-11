@@ -28,25 +28,33 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   const jedi = result.data.allContentfulJedi.nodes
 
-  // Create jedi post pages
+  const types = [
+    {
+      entries: jedi,
+      faction: 'jedi',
+      template: jediPost,
+    },
+  ]
+
+  // Create post pages
   // But only if there's at least one jedi post found in Contentful
   // `context` is available in the template as a prop and as a variable in GraphQL
 
-  if (jedi.length > 0) {
-    jedi.forEach((singleJedi, index) => {
-      const previousPostName = index === 0 ? null : jedi[index - 1].name
+  types.forEach((type) => {
+    type.entries.forEach((forceUser, index) => {
+      const previousPostName = index === 0 ? null : type.entries[index - 1].name
       const nextPostName =
-        index === jedi.length - 1 ? null : jedi[index + 1].name
+        index === type.entries.length - 1 ? null : type.entries[index + 1].name
 
       createPage({
-        path: `/jedi/${singleJedi.name}/`,
-        component: jediPost,
+        path: `/${type.faction}/${forceUser.name}/`,
+        component: type.template,
         context: {
-          name: singleJedi.name,
+          name: forceUser.name,
           previousPostName,
           nextPostName,
         },
       })
     })
-  }
+  })
 }

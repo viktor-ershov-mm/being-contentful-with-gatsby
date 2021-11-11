@@ -15,7 +15,7 @@ class JediIndex extends React.Component {
       <Layout location={this.props.location}>
         <Seo title="Jedi" />
         <Hero title="Jedi" />
-        <ArticlePreview forceUsers={posts} />
+        <ArticlePreview forceUsers={posts} type="jedi" />
       </Layout>
     )
   }
